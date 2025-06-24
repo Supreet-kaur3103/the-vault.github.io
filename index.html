@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Vault — Project Plan</title>
+  <style>
+   /* Root variables for colors and reuse */
+:root {
+  --color-bg-dark: #121212;
+  --color-bg-section: #1e1e1e;
+  --color-bg-card: #2a2a2a;
+  --color-bg-detail: #181818;
+  --color-primary: #42b07c;
+  --color-primary-light: #7fdfa5;
+  --color-primary-muted: #42b07c44;
+  --color-text-light: #ddd;
+  --color-text-muted: #aaa;
+  --color-text-secondary: #ccc;
+  --color-text-dark: #121212;
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+  --shadow-light: rgba(66, 176, 124, 0.15);
+  --shadow-hover: rgba(66, 176, 124, 0.35);
+}
+
+/* Global */
+html {
+  scroll-padding-top: 220px;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 470px;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #000;
+  width: 100%;
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  user-select: none;
+}
+header h1 {
+  margin: 0 0 0.25rem;
+  font-weight: 800;
+  font-size: 2.8rem;
+  color: var(--color-primary);
+}
+header p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Nav */
+nav {
+  background: #000;
+  margin-top: 15px;
+  border-bottom: 1px solid var(--color-primary-muted);
+  border-top: 2px solid var(--color-primary);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+nav ul li::before {
+  display: none;
+}
+
+nav a {
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+  text-decoration: none;
+}
+nav a:hover,
+nav a:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  outline: none;
+}
+
+/* Main container */
+main {
+  max-width: 90%;
+  width: 100%;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  color: var(--color-primary);
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  user-select: none;
+}
+
+h1 {
+  font-size: 2.8rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: 6px;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+/* Paragraphs */
+p {
+  color: var(--color-text-muted);
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Sections */
+section {
+  background: var(--color-bg-section);
+  border-radius: var(--border-radius);
+  border: 1px solid #444;
+  padding: 25px 30px;
+  margin-bottom: 40px;
+}
+
+/* Lists */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+ul li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  user-select: text;
+}
+
+ul li::before {
+  content: "•";
+  color: var(--color-primary);
+  position: absolute;
+  left: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 0.1em;
+}
+
+ul li:hover {
+  color: var(--color-primary);
+}
+
+/* Buttons for toggles */
+.btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+button.toggle-btn {
+  flex: 1 1 220px;
+  background: var(--color-bg-section);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.15rem;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+  user-select: none;
+}
+
+button.toggle-btn.active,
+button.toggle-btn:hover,
+button.toggle-btn:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  outline: none;
+}
+
+/* Card container */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Tech card */
+.tech-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 20px 25px;
+  transition: border-color var(--transition-speed) ease;
+  user-select: none;
+}
+
+.tech-card:hover,
+.tech-card:focus-within {
+  border-color: #9aadbf;
+}
+
+.tech-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.8em;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.tech-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  user-select: text;
+}
+
+/* Collapsible content */
+.collapsible-content {
+  background: #232323;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary);
+  padding: 20px 30px;
+  margin: 0 auto 40px;
+  max-width: 80%;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+.collapsible-content.expanded {
+  max-height: 1200px;
+  opacity: 1;
+  margin-bottom: 40px;
+}
+
+/* Feature cards */
+.feature-cards {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.feature-card {
+  flex: 1 1 140px;
+  background: var(--color-bg-card);
+  border: 3px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 15px 12px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+}
+
+.feature-card:hover,
+.feature-card:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  outline: none;
+}
+
+.feature-card.active {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+}
+
+/* Feature detail */
+.feature-detail {
+  background: var(--color-bg-detail);
+  border-radius: 14px;
+  border: 2px solid #555;
+  padding: 25px 30px;
+  color: var(--color-text-light);
+  font-size: 1.15rem;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  min-height: 160px;
+  user-select: text;
+}
+
+.feature-detail p {
+  margin: 0;
+}
+
+.feature-detail strong {
+  color: var(--color-primary);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  padding-left: 20px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.timeline-marker {
+  min-width: 100px;
+  background: var(--color-bg-section);
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--color-primary);
+  font-weight: bold;
+  text-align: center;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.timeline-content {
+  background: var(--color-bg-card);
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+}
+
+.timeline-content h3 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+.timeline-content ul {
+  padding-left: 20px;
+}
+
+.timeline-content ul li {
+  margin-bottom: 10px;
+  color: var(--color-text-secondary);
+}
+
+/* Timeline */
+#timeline {
+  margin-bottom: 3rem;
+}
+/*#timeline h2 {
+  color: #42B07C;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}*/
+.pro-timeline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pro-timeline-item {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  flex: 1 1 180px;
+  /* Toned down shadow */
+  box-shadow: 0 0 6px #42B07C33;
+  position: relative;
+}
+.pro-timeline-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  width: 40px;
+  height: 3px;
+  background: #42B07C;
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+.pro-timeline-item h3 {
+  margin-top: 0;
+  color: #a0f2c9;
+  font-weight: 700;
+}
+.pro-timeline-item p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+.pro-timeline-week {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #42B07C;
+}
+.pro-timeline-phase {
+  font-style: italic;
+  margin-top: 0.2rem;
+  color: #7fdfa5;
+}
+
+/* KPI Cards */
+#goals {
+  margin-bottom: 3rem;
+}
+.goals{
+  text-align: center;
+  margin-top: 2em;
+}
+
+
+.kpi-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.kpi-card {
+  background: #1a1a1a;
+  border-left: 5px solid #42B07C;
+  border-radius: 10px;
+  padding: 1.25rem 1.75rem;
+  width: 280px;
+  /* Toned down shadow */
+  box-shadow: 0 0 5px #42B07C33;
+  transition: transform 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-6px);
+  /* Softer shadow on hover */
+  box-shadow: 0 6px 12px #42B07C55;
+}
+
+.kpi-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: #a0f2c9;
+}
+
+.kpi-card p {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.progress-bar {
+  background: #333;
+  border-radius: 8px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #42B07C;
+  height: 100%;
+  width: 0;
+  border-radius: 8px;
+  transition: width 1.6s ease-in-out;
+}
+
+/* Flex container for KPI lists */
+.kpi-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.kpi-column {
+  flex: 1 1 400px;
+  min-width: 280px;
+}
+
+.kpi-column h2 {
+  color: #42B07C;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.kpi-list, .optimization-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+.kpi-list li, .optimization-list li {
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.kpi-list li::before, .optimization-list li::before {
+  content: '✔';
+  color: #42B07C;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 768px) {
+  .kpi-flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/*Risks*/
+#risks {
+  margin-bottom: 3rem;
+
+}
+
+
+.risks-wrapper {
+  overflow-x: auto;
+}
+
+.risks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  min-width: 600px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  /* Toned down shadow */
+  box-shadow: 0 0 6px rgba(66, 176, 124, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.risks-table th,
+.risks-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.risks-table thead {
+  background-color: #222;
+  color: #a0f2c9;
+}
+
+.risks-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .risks-table {
+    font-size: 0.95rem;
+  }
+
+ 
+}
+
+/* Footer */
+footer {
+  background: #000;
+  width: 100%;
+  display: flex;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #42B07C44;
+}
+
+
+
+/* Media Queries */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  nav ul {
+    gap: 0.75rem;
+  }
+  .feature-cards {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .feature-card {
+    flex: 1 1 100%;
+  }
+  .timeline {
+    padding-left: 10px;
+  }
+  .timeline-marker {
+    min-width: 80px;
+    font-size: 0.9rem;
+  }
+  .timeline-content {
+    padding: 15px;
+  }
+  section {
+    padding: 20px 15px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+    <header>
+    <h1>The Vault — Project Plan</h1>
+    <p>Crafting an Exclusive Members-Only Experience for R44 Performance</p>
+    
+    <nav>
+  <ul>
+    <li><a href="#concept">Concept & Strategy</a></li>
+    <li><a href="#tech">Technical Requirements</a></li>
+    <li><a href="#designux">Design & UX overview</a></li>
+    <li><a href="#marketing">Marketing Strategy</a></li>
+    <li><a href="#timeline">Proposed Timeline</a></li>
+    <li><a href="#goals">Success Metrics</a></li>
+    <li><a href="#risks">Risk Management</a></li>
+  </ul>
+</nav>
+</header>
+  <main>
+    <section id="concept">
+        <h2>Concept and Stratergy</h2>
+    <p>The Vault is an exclusive, members-only section of the R44 Performance e-commerce platform designed to elevate the shopping experience for our most passionate customers. It offers early access to product pre-orders and exclusive drops, tailored product recommendations based on individual preferences, and limited-time bundles featuring our best-selling items. Members also enjoy priority invitations to special events and exclusive offers, creating a premium, personalized, and engaging environment. The Vault transforms R44 from a traditional parts retailer into a vibrant community hub for performance enthusiasts who value speed, exclusivity, and exceptional service.
+
+</p>
+      
+    <div class="btn-group" role="tablist" aria-label="Toggle project details">
+      <button id="btn-benefits" class="toggle-btn" aria-expanded="false" aria-controls="benefits" role="tab">Benefits for Members</button>
+      <button id="btn-business" class="toggle-btn" aria-expanded="false" aria-controls="business" role="tab">Business Value</button>
+    </div>
+
+    <section id="benefits"  role="tabpanel" class="collapsible-content" aria-labelledby="btn-benefits" hidden>
+      <ul>
+        <li>Early access to product drops and pre-orders</li>
+        <li>Tailored product listings based on past purchases</li>
+        <li>Priority email campaigns segmented by car model</li>
+        <li>Customized “Shop the Look” pages</li>
+        <li>Early or last-minute track day booking access</li>
+        <li>Loyalty points redeemable for discounts</li>
+        <li>Gift card cashback on referrals</li>
+        <li>Refer-a-friend discounts</li>
+        <li>Subscription delivery for maintenance products</li>
+        <li>Faster shipping options</li>
+        <li>Special packaging with personalized notes and discount coupons</li>
+      </ul>
+    </section>
+    
+    <section id="business" class="collapsible-content" role="tabpanel" aria-labelledby="btn-business" hidden>
+      <ul>
+        <li>Drives sign-ups and grows CRM database</li>
+        <li>Increases repeat purchases and customer lifetime value (LTV)</li>
+        <li>Boosts engagement via personalized content</li>
+        <li>Unlocks upsell and referral opportunities</li>
+      </ul>
+    </section>
+</section>
+    <section id="tech">
+  <h2>Technical Requirements</h2>
+
+  <h3>Platform &amp; Tools</h3>
+  <div class="card-container">
+    <div class="tech-card">
+      <h4>Shopify Plus</h4>
+      <p>Enterprise e-commerce platform powering the online store and checkout experience.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Locksmith (access control)</h4>
+      <p>Manages gated content and member-only access throughout the site.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Klaviyo / Omnisend</h4>
+      <p>Segmented email marketing automation tailored by user behavior and car model.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Smile.io</h4>
+      <p>Loyalty points, referral rewards, and incentivization system.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Rebuy / Wiser</h4>
+      <p>Personalized product recommendations and dynamic product feeds.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Countdown apps (e.g., Hextom)</h4>
+      <p>Urgency timers and countdowns to boost conversions on limited-time offers.</p>
+    </div>
+  </div>
+
+  <h3>Key Integrations</h3>
+  <div class="card-container">
+    <div class="tech-card">
+      <h4>Signup Form</h4>
+      <p>Collects car model info to personalize profile and email targeting.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Loyalty & Referral System</h4>
+      <p>Powered by Smile.io or LoyaltyLion to manage points and referrals.</p>
+    </div>
+    <div class="tech-card">
+      <h4>Product Visibility Rules</h4>
+      <p>Controls product availability based on membership tier.</p>
+    </div>
+  </div>
+</section>
+<section id="designux">
+<h2>Design &amp; UX Overview</h2>
+  <div class="feature-cards">
+    <button class="feature-card" data-feature="teaser" style="--accent:#e67e22;">Teaser Tiles</button>
+    <button class="feature-card" data-feature="hero" style="--accent:#3498db;">Hero Banner</button>
+   
+    <button class="feature-card" data-feature="countdown" style="--accent:#2ecc71;">Countdown Timers</button>
+
+    <button class="feature-card" data-feature="loyalty" style="--accent:#1abc9c;">Loyalty Badges</button>
+    <button class="feature-card" data-feature="personalized" style="--accent:#f39c12;">Personalized Picks</button>
+    <button class="feature-card" data-feature="track-events" style="--accent:#8e44ad;">Track Event Callouts</button>
+    
+    <button class="feature-card" data-feature="popular" style="--accent:#27ae60;">Popular for Your Car</button>
+  </div>
+
+  <div class="feature-detail" tabindex="0" aria-live="polite">
+    <p>Select a feature to see an example or description.</p>
+  </div>
+</section>
+
+<section id="marketing">
+  <h2>Marketing & Launch Timeline</h2>
+
+  <div class="timeline">
+
+    <!-- Pre-Launch -->
+    <div class="timeline-item">
+      <div class="timeline-marker">Week 1–4</div>
+      <div class="timeline-content">
+        <h3>Pre-Launch</h3>
+        <ul>
+          <li>Teaser content across platforms: <strong>“Something Big is Coming”</strong></li>
+          <li>Signup landing page with early invite option</li>
+          <li>Influencer sneak peeks & countdowns</li>
+          <li><strong>TikTok/YouTube Live Event:</strong>
+            <ul>
+              <li>Early discount code for first 10 paid members</li>
+              <li>Live Q&amp;A with R44 team</li>
+              <li>Flash giveaways</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Launch -->
+    <div class="timeline-item">
+      <div class="timeline-marker">Week 5</div>
+      <div class="timeline-content">
+        <h3>Launch</h3>
+        <ul>
+          <li>Homepage takeover banner</li>
+          <li>Email + SMS campaign to waitlist</li>
+          <li>Influencer activations</li>
+          <li>Paid campaign push</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Post-Launch -->
+    <div class="timeline-item">
+      <div class="timeline-marker">Post-Launch</div>
+      <div class="timeline-content">
+        <h3>Post-Launch Promotion Strategy </h3>
+        <ul>
+          <li>Weekly email updates: <strong>“What’s New in The Vault”</strong></li>
+          <li><strong>Surprise Drop Fridays</strong> to build habit and FOMO</li>
+          <li>Highlight new benefits in each campaign (e.g., gift card cashback)</li>
+          <li>Vault-exclusive product bundles or early track day RSVP offers</li>
+          <li>Ongoing influencer Vault hauls</li>
+          <li>Quarterly member-only flash sales</li>
+          <li>Loyalty upgrade incentives: <strong>“Spend X, unlock Tier 2 access”</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section id="timeline" tabindex="0">
+    <h2>Timeline & Team Involvement</h2>
+    <div class="pro-timeline" role="list">
+      <div class="pro-timeline-item" role="listitem">
+        <div class="pro-timeline-week">Week 1</div>
+        <div class="pro-timeline-phase">Research & Design</div>
+            
+        <h3>Finalize requirements, visual design</h3>
+        <div class="pro-timeline-team"><strong>Team Involved:</strong> Dev, Designer, Product Lead (Company Insights)</div>
+      </div>
+      <div class="pro-timeline-item" role="listitem">
+        <div class="pro-timeline-week">Weeks 2-3</div>
+        <div class="pro-timeline-phase">Build</div>
+        <h3>Site structure, Vault access, integrations</h3>
+        <div class="pro-timeline-team"><strong>Team Involved:</strong> Dev</div>
+      </div>
+      <div class="pro-timeline-item" role="listitem">
+        <div class="pro-timeline-week">Week 4</div>
+        <div class="pro-timeline-phase">Testing & Prep</div>
+        <h3>QA, polish UX, schedule campaigns</h3>
+        <div class="pro-timeline-team"><strong>Team Involved:</strong> Dev, Marketing Team, Sales, Product Insights</div>
+      </div>
+      <div class="pro-timeline-item" role="listitem">
+        <div class="pro-timeline-week">Week 5</div>
+        <div class="pro-timeline-phase">Launch</div>
+        <h3>Go live and execute campaigns</h3>
+        <div class="pro-timeline-team"><strong>Team Involved:</strong> Dev, Social Media, Sales, Product Lead (Company Insights)</div>
+      </div>
+    
+    <div class="pro-timeline-item" role="listitem">
+      <div class="pro-timeline-week">Week 6+</div>
+      <div class="pro-timeline-phase">Post-Launch</div>
+      <h3>Monitor success metrics, refine UX, run retention & referral campaigns</h3>
+      <div class="pro-timeline-team"><strong>Team Involved:</strong> Dev, Product Lead, Marketing, Analytics</div>
+    </div>
+</div>  
+</div>
+  </section>
+<section id="goals" tabindex="0">
+  <h2>Success Metrics</h2>
+   <div class="kpi-flex-container">
+    <div class="kpi-column">
+      <h3>KPIs to Track</h3>
+      <ul class="kpi-list">
+        <li>Vault sign-ups (free vs paid)</li>
+        <li>Conversion rate (Vault visitors → purchases)</li>
+        <li>Gift card referral usage</li>
+        <li>Pre-order volume</li>
+        <li>Track event sign-ups</li>
+        <li>Email/SMS engagement by car segment</li>
+        <li>Loyalty point redemptions</li>
+        <li>Repeat order frequency & AOV</li>
+        <li>Heatmaps & click-path analysis (via Hotjar)</li>
+      </ul>
+    </div>
+
+    <div class="kpi-column">
+      <h3>Optimization Plan</h3>
+      <ul class="optimization-list">
+        <li>A/B test Vault homepage layout & offers</li>
+        <li>Personalized deal testing by vehicle make</li>
+        <li>Quarterly member surveys for feedback</li>
+        <li>Loyalty upgrades and subscription engagement tracking</li>
+        <li>Roll out “mystery drops” or seasonal bundles</li>
+      </ul>
+    </div>
+  </div>
+    <h3 class="goals">Measurable Goals & KPIs</h3>
+  <div class="kpi-container">
+    <div class="kpi-card" data-progress="100">
+      <h3>Sign-Ups</h3>
+      <p>Achieve 1,000 Vault sign-ups within 3 months</p>
+      <div class="progress-bar" aria-label="Sign-Ups progress">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" data-progress="75">
+      <h3>Repeat Purchases</h3>
+      <p>Increase repeat purchase rate by 15% among Vault members</p>
+      <div class="progress-bar" aria-label="Repeat Purchases progress">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" data-progress="50">
+      <h3>Email Engagement</h3>
+      <p>Boost email open rate for Vault campaigns by 25%</p>
+      <div class="progress-bar" aria-label="Email Engagement progress">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" data-progress="20">
+      <h3>Referrals</h3>
+      <p>Reach 20% referral-driven sign-ups through gift card cashback</p>
+      <div class="progress-bar" aria-label="Referral progress">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" data-progress="30">
+      <h3>Average Order Value</h3>
+      <p>Grow average order value (AOV) from Vault members by 10%</p>
+      <div class="progress-bar" aria-label="AOV progress">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="risks" >
+  <h2>Risks & Mitigation</h2>
+  <div class="risks-wrapper">
+    <table class="risks-table" aria-label="Risks and mitigation strategies">
+      <thead>
+        <tr>
+          <th>Risk</th>
+          <th>Mitigation Strategy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low initial sign-up rate</td>
+          <td>Launch influencer campaigns + exclusive early discounts</td>
+        </tr>
+        <tr>
+          <td>Delays in tech integration</td>
+          <td>Build buffer time into timeline + parallel testing phases</td>
+        </tr>
+        <tr>
+          <td>Low engagement with emails</td>
+          <td>A/B test subject lines, send times, and personalized content</td>
+        </tr>
+        <tr>
+          <td>Customer confusion on tiers</td>
+          <td>Clear messaging and simple tier benefits communication</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+  </main>
+<footer>
+  <p><strong>The Vault Project Plan</strong> | R44 Performance</p>
+  <p>
+  Prepared by: 
+  <a href="https://www.linkedin.com/in/supreet-kaur3103/" 
+     target="_blank" 
+     style="text-decoration: none; color: #42B07C;">
+    Supreet Kaur
+  </a>
+</p>
+
+
+</footer>
+
+  <script>
+     const cards = document.querySelectorAll('.feature-card');
+  const detail = document.querySelector('.feature-detail');
+
+  const featureContent = {
+    teaser: `<strong>Teaser Tiles</strong>: Non-members see teaser tiles with a <em>lock overlay</em> encouraging signup for access. Visually enticing and mysterious to boost curiosity.<br><img src="tiles.png" alt="Teaser Tiles" style="max-width:100%; margin-top:10px;" />`,
+
+    hero: `<strong>Hero Banner</strong>: A bold “Unlock The Vault” banner welcomes users, emphasizing exclusivity and premium access.<br><img src="banner.png" alt="Hero Banner" style="max-width:100%; margin-top:10px;" />`,
+    
+    countdown: `<strong>Countdown Timers</strong>: Dynamic timers create urgency on limited-time offers, motivating faster purchases.<br><img src="countdown.png" alt="Countdown Timer" style="max-width:100%; margin-top:10px;" />`,
+    
+    loyalty: `<strong>Loyalty Badge Overlays</strong>: Items display badges highlighting loyalty rewards, motivating engagement and repeat buying.<br><img src="loyalty.png" alt="Loyalty" style="max-width:100%; margin-top:10px;" />`,
+    personalized: `<strong>Personalized Picks</strong>: Product recommendations tailored by user’s car model create a highly relevant shopping experience.<br><img src="filter.png" alt="Customized Filter" style="max-width:100%; margin-top:10px;" />`,
+    "track-events": `<strong>Track Event Callouts</strong>: Exclusive announcements and booking options for track day events are available only to members.<br><img src="track-day.png" alt="Track-Day" style="max-width:100%; margin-top:10px;" />`,
+    
+    popular: `<strong>Popular for Your Car</strong>: Dynamic sections showcase trending products tailored specifically to the user’s car model.<br><img src="shop-the-look.png" alt="Personal Experience" style="max-width:100%; margin-top:10px;" />`
+  };
+
+  function clearActive() {
+    cards.forEach(c => c.classList.remove('active'));
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      clearActive();
+      card.classList.add('active');
+      const key = card.getAttribute('data-feature');
+      detail.innerHTML = featureContent[key];
+      detail.focus();
+    });
+  });
+// Animate KPI progress bars on scroll into view
+  function animateProgressBars() {
+    const kpiCards = document.querySelectorAll('.kpi-card');
+    kpiCards.forEach(card => {
+      const progressFill = card.querySelector('.progress-fill');
+      const progressPercent = card.getAttribute('data-progress');
+      progressFill.style.width = progressPercent + '%';
+    });
+  }
+
+cards.forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
+
+  // Run animations once DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    animateProgressBars();
+  });
+    const btnBenefits = document.getElementById('btn-benefits');
+    const btnBusiness = document.getElementById('btn-business');
+    const contentBenefits = document.getElementById('benefits');
+    const contentBusiness = document.getElementById('business');
+
+    function togglePanel(panelToShow, buttonToActivate, otherPanel, otherButton) {
+      const isExpanded = buttonToActivate.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        // Collapse if already expanded
+        buttonToActivate.setAttribute('aria-expanded', 'false');
+        panelToShow.hidden = true;
+        panelToShow.classList.remove('expanded');
+        buttonToActivate.classList.remove('active');
+      } else {
+        // Expand clicked panel
+        buttonToActivate.setAttribute('aria-expanded', 'true');
+        panelToShow.hidden = false;
+        panelToShow.classList.add('expanded');
+        buttonToActivate.classList.add('active');
+
+        // Collapse other panel if open
+        otherButton.setAttribute('aria-expanded', 'false');
+        otherPanel.hidden = true;
+        otherPanel.classList.remove('expanded');
+        otherButton.classList.remove('active');
+      }
+    }
+
+    btnBenefits.addEventListener('click', () => {
+      togglePanel(contentBenefits, btnBenefits, contentBusiness, btnBusiness);
+    });
+
+    btnBusiness.addEventListener('click', () => {
+      togglePanel(contentBusiness, btnBusiness, contentBenefits, btnBenefits);
+    });
+
+    // Accessibility: toggle with keyboard (Enter or Space)
+    [btnBenefits, btnBusiness].forEach(btn => {
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
